@@ -1,15 +1,15 @@
 var onoff = require('onoff'); //#A
 
-var Gpio = onoff.Gpio,
-  led = new Gpio(4, 'out'), //#B
-  interval;
+var Gpio = onoff.Gpio;
+var led = new Gpio(4, 'out'); //#B
+var interval;
 
 interval = setInterval(function () { //#C
   var value = (led.readSync() + 1) % 2; //#D
   led.write(value, function() { //#E
     console.log("Changed LED state to: " + value);
   });
-}, 2000);
+}, 500);
 
 process.on('SIGINT', function () { //#F
   clearInterval(interval);
