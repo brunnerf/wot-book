@@ -4,7 +4,7 @@
   "author": "Vlad Trifa <vladounet@gmail.com>",
   "repository": "https://github.com/brunnerf/wot-book.git",
   "dependencies": {
-    "node-dht-sensor": "^0.0.8",
+    "node-dht-sensor": "0.0.33",
     "onoff": "^1.1.9"
   },
   "engine": "node >= 0.12.0"
