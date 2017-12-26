@@ -3,7 +3,7 @@ var sensorLib = require('node-dht-sensor');
 // sensorLib.initialize(22, 12); //#A
 var interval = setInterval(function () { //#B
   read();
-}, 2000);
+}, 3000);
 
 function read() {
   sensorLib.read(22,12, function (error, temperature, humidity) {
