@@ -1,5 +1,5 @@
 var Gpio = require('onoff').Gpio,
-    sensor = new Gpio(27, 'in');    //#A
+    sensor = new Gpio(17, 'in');    //#A
 var interval;
 
 interval = setInterval( function () { 
