@@ -37,6 +37,7 @@ var express = require('express'),
   actuatorsRoutes = require('./../routes/actuators'),
   sensorRoutes = require('./../routes/sensors'),
   resources = require('./../resources/model'), //#A
+  converter = require('./../middleware/converter'),
   cors = require('cors'); 
 
 var app = express(); //#B
@@ -49,6 +50,9 @@ app.use('/pi/sensors', sensorRoutes);
 app.get('/pi', function (req, res) { //#E
   res.send('This is the WoT-Pi!')
 });
+
+// For representation design
+app.use(converter());
 
 module.exports = app;
 
