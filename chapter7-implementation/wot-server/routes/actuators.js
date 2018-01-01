@@ -40,15 +40,25 @@ router = express.Router(),
 resources = require('./../resources/model');
 
 router.route('/').get(function (req, res, next) { // #A
- res.send(resources.pi.actuators); // #B
+    req.result = resources.pi.actuators; // #B
+    next();
 });
 
 router.route('/leds').get(function (req, res, next) { // #C
-  res.send(resources.pi.actuators.leds);
+    req.result = resources.pi.actuators.leds;
+    next();
 });
 
 router.route('/leds/:id').get(function (req, res, next) { //#D
-  res.send(resources.pi.actuators.leds[req.params.id]); //#E
+    req.result = resources.pi.actuators.leds[req.params.id]; //#E
+    next();
+});
+
+router.route('/leds/:id').put(function (req, res, next) { //#D
+    var selectedLed = resources.pi.actuators.leds[req.params.id];
+    selectedLed.value = req.body.value; //#C
+    req.result = selectedLed;
+    next();
 });
 
 module.exports = router;
