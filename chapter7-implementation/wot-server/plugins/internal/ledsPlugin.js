@@ -2,20 +2,19 @@ var resources = require('./../../resources/model');
 
 var actuator1, actuator2, interval;
 var model = resources.pi.actuators.leds;
-var pluginName = model.name;
 var localParams = {'simulate': false, 'frequency': 2000};
 
 
 exports.start = function (params) {
   localParams = params;  
-  observe(model['1'], actuator1); //#A
-  observe(model['2'], actuator2); //#A
 
   if (localParams.simulate) {
       simulate();
   } else {
     connectHardware();
   }
+  observe(model['1'], actuator1); //#A
+  observe(model['2'], actuator2); //#A
 };
 
 exports.stop = function () {
@@ -33,9 +32,9 @@ function observe(what, actuator) {
     var value = what.value;
     observePoll = setInterval(function () {
         if (value != what.value) {
-            console.info('Change detected by plugin for %s...', pluginName);
+            console.info('Change detected by plugin for %s...', what.name);
             value = what.value;
-            switchOnOff(value, actuator);
+            switchOnOff(value, actuator, what.name);
         }
     }, 100)
 
@@ -45,10 +44,10 @@ function observe(what, actuator) {
   }); */
 };
 
-function switchOnOff(value, actuator) {
+function switchOnOff(value, actuator, name) {
   if (!localParams.simulate) {
       actuator.write(value === true ? 1 : 0, function () { //#C
-      console.info('Changed value of %s to %s on %s', pluginName, value, actuator.name);
+      console.info('Changed value of %s to %s', name, value);
     });
   }
 };
@@ -56,9 +55,10 @@ function switchOnOff(value, actuator) {
 function connectHardware() {
   var Gpio = require('onoff').Gpio;
   actuator1 = new Gpio(model['1'].gpio, 'out'); //#D
-  console.info('Hardware %s actuator1 started!', pluginName);
+  console.info('Hardware %s actuator started!', model['1'].name);
   actuator2 = new Gpio(model['2'].gpio, 'out'); //#D
-  console.info('Hardware %s actuator1 started!', pluginName);};
+  console.info('Hardware %s actuator started!', model['2'].name);
+};
 
 function simulate() {
   interval = setInterval(function () {
