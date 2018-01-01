@@ -69,7 +69,7 @@ function simulate() {
           model['1'].value = true;
     }
   }, localParams.frequency);
-  console.info('Simulated %s actuator started!', pluginName);
+  console.info('Simulated %s actuator started!', model['1'].name);
 };
 
 //#A Observe the model for the LEDs
