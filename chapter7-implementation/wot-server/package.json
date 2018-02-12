@@ -24,6 +24,7 @@
     "messaging"
   ],
   "dependencies": {
+    "@nx-js/observer-util": "^4.0.1",
     "bl": "^1.2.1",
     "body-parser": "^1.18.2",
     "coap": "^0.20.0",
@@ -37,5 +38,6 @@
   "optionalDependencies": {
     "onoff": "^1.0.4",
     "node-dht-sensor": "^0.0.33"
-  }
+  },
+  "devDependencies": {}
 }

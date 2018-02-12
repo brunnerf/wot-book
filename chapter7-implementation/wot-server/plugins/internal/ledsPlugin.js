@@ -1,3 +1,4 @@
+var observerUtil = require("@nx-js/observer-util");
 var resources = require('./../../resources/model');
 
 var actuator1, actuator2, interval;
@@ -13,8 +14,10 @@ exports.start = function (params) {
   } else {
     connectHardware();
   }
+  
   observe(model['1'], actuator1); //#A
   observe(model['2'], actuator2); //#A
+   
 };
 
 exports.stop = function () {
@@ -28,21 +31,15 @@ exports.stop = function () {
   console.info('%s plugin stopped!', pluginName);
 };
 
-function observe(what, actuator) {
-    var value = what.value;
-    observePoll = setInterval(function () {
-        if (value != what.value) {
-            console.info('Change detected by plugin for %s...', what.name);
-            value = what.value;
-            switchOnOff(value, actuator, what.name);
-        }
-    }, 100)
+function observe(what) {
 
-/*  Object.observe(what, function (changes) {
-    console.info('Change detected by plugin for %s...', pluginName);
-    switchOnOff(model.value); //#B
-  }); */
+    const logger = observerUtil.observe(() => 
+        {
+            console.info('Change detected by plugin for %s...', what.name);
+            switchOnOff(what.value); //#B
+        });
 };
+
 
 function switchOnOff(value, actuator, name) {
   if (!localParams.simulate) {
