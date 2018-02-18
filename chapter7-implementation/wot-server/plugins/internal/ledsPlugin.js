@@ -31,12 +31,12 @@ exports.stop = function () {
   console.info('%s plugin stopped!', pluginName);
 };
 
-function observe(what) {
+function observe(what, actuator) {
 
     const logger = observerUtil.observe(() => 
         {
             console.info('Change detected by plugin for %s...', what.name);
-            switchOnOff(what.value); //#B
+            switchOnOff(what.value, actuator, what.name); //#B
         });
 };
 
