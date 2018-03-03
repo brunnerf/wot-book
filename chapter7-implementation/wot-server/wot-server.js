@@ -38,7 +38,8 @@ var server = httpServer.listen(resources.pi.port, function () {
 
  // Initial version:
  var httpServer = require('./servers/http'), //#A
- resources = require('./resources/model');
+     wsServer = require('./servers/websockets')
+     resources = require('./resources/model');
 
 // Internal Plugins
 var ledsPlugin = require('./plugins/internal/ledsPlugin'), //#A
@@ -47,15 +48,17 @@ var ledsPlugin = require('./plugins/internal/ledsPlugin'), //#A
 
 // Internal Plugins for sensors/actuators connected to the PI GPIOs
 // If you test this with real sensors do not forget to set simulate to 'false'
-pirPlugin.start({ 'simulate': false, 'frequency': 2000 }); //#B
-ledsPlugin.start({ 'simulate': false, 'frequency': 10000 }); //#B
-dhtPlugin.start({ 'simulate': false, 'frequency': 10000 }); //#B
+pirPlugin.start({ 'simulate': true, 'frequency': 2000 }); //#B
+ledsPlugin.start({ 'simulate': true, 'frequency': 10000 }); //#B
+dhtPlugin.start({ 'simulate': true, 'frequency': 10000 }); //#B
 
  var server = httpServer.listen(resources.pi.port, function () { //#B
   console.info('Your WoT Pi is up and running on port %s', resources.pi.port); //#C
  });
 
+ // Websockets server
+ wsServer.listen(server);
+
  //#A Load the http server and the model
  //#B Start the HTTP server by invoking listen() on the Express application
  //#C Once the server is started the callback is invoked
-
