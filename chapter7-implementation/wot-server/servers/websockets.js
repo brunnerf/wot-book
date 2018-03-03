@@ -9,9 +9,15 @@ exports.listen = function(server) {
   wss.on('connection', function (ws) { //#B
     var url = ws.upgradeReq.url;
     console.info(url);
+    let callback;
     try {
         let resource = selectResouce(url);
-        observerUtil.observe(() => ws.send(JSON.stringify(resource)));
+        callback = observerUtil.observe(() =>
+                                    { try { ws.send(JSON.stringify(resource))
+                                        } catch(e) {
+                                      }
+                                    }
+                            );
     /*  Object.observe(selectResouce(url), function (changes) { //#C
         ws.send(JSON.stringify(changes[0].object), function () {
         });
@@ -20,7 +26,13 @@ exports.listen = function(server) {
     catch (e) { //#D
       console.log('Unable to observe %s resource!', url);
     };
+
+    ws.on('close', function () {
+      observerUtil.unobserve(callback);
+    });
   });
+
+
 };
 
 function selectResouce(url) { //#E
