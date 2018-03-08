@@ -1,25 +1,8 @@
-let observerUtil =  require("@nx-js/observer-util");
 var resources = require('./resources.json');
+var observer = require('./../utils/observer.js');
 
 
-function makeObservable(obj) {
-    var copy;
-
-    // Handle Object
-    if (obj instanceof Object) {
-        copy = {};
-        for (var attr in obj) {
-            if (obj.hasOwnProperty(attr)) copy[attr] = makeObservable(obj[attr]);
-        }
-        return observerUtil.observable(copy);
-    } else {
-        return obj;
-    }
-
-}
-
-var observableResource = makeObservable(resources);
+var observableResource = observer.makeObservable(resources);
 
 
 module.exports = observableResource;
-

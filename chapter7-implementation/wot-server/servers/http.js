@@ -36,10 +36,11 @@ module.exports = app;
 var express = require('express'),
   actuatorsRoutes = require('./../routes/actuators'),
   sensorRoutes = require('./../routes/sensors'),
+  thingsRoutes = require('./../routes/things'),
   resources = require('./../resources/model'), //#A
   converter = require('./../middleware/converter'),
   cors = require('cors'),
-  bodyParser = require('body-parser'); 
+  bodyParser = require('body-parser');
 
 var app = express(); //#B
 
@@ -49,6 +50,7 @@ app.use(cors()); //#C
 
 app.use('/pi/actuators', actuatorsRoutes); //#D
 app.use('/pi/sensors', sensorRoutes);
+app.use('/things', thingsRoutes);
 
 app.get('/pi', function (req, res) { //#E
   res.send('This is the WoT-Pi!')
@@ -64,4 +66,3 @@ module.exports = app;
 //#C Enable CORS support (see section 6.1.5)
 //#D Binds your routes to the Express application; bind them to /pi/actuators/... and /pi/sensors/...
 //#E Create a default route for /pi
-

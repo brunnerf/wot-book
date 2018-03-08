@@ -24,7 +24,7 @@
     "messaging"
   ],
   "dependencies": {
-    "@nx-js/observer-util": "^4.0.1",
+    "@nx-js/observer-util": "^4.1.1",
     "bl": "^1.2.1",
     "body-parser": "^1.18.2",
     "coap": "^0.20.0",
@@ -32,12 +32,12 @@
     "express": "^4.16.2",
     "json2html": "0.0.8",
     "msgpack5": "^3.6.0",
-    "node-json2html": "^1.1.1",
+    "node-json2html": "^1.2.0",
     "ws": "^0.7.2"
   },
   "optionalDependencies": {
-    "onoff": "^1.0.4",
-    "node-dht-sensor": "^0.0.33"
+    "node-dht-sensor": "^0.0.33",
+    "onoff": "^1.2.0"
   },
   "devDependencies": {}
 }

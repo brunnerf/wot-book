@@ -1,14 +1,16 @@
+var observer = require('./../utils/observer.js');
 var resources = require('./../resources/model');
+
 
 exports.addDevice = function(id, name, description, sensors, actuators) {
   if(!resources.things) {
     resources.things = {};
   }
-  resources.things[id] = {'name' : name,
+  resources.things[id] = observer.makeObservable({'name' : name,
     'description' : description,
     'sensors' : sensors,
     'actuators' : actuators
-  }
+  });
 };
 
 exports.randomInt = function(low, high) {
